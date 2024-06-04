@@ -33,10 +33,7 @@ nav ul li a {
 }
 
 section {
-    margin: 20px auto;
-    width: calc(100% - 40px);
-    max-width: 1200px;  /* Adjust the max-width as needed */
-    
+    width: 100% ;
 }
 
 .service {

@@ -2,10 +2,9 @@
 .hero {
     position: relative;
     height: 60vh;
-    width: calc(100% - 40px);
+    max-width: calc(90% - 40px);
     margin: 20px auto;
     display: flex;
-    justify-content: center;
     align-items: center;
     color: white;
   }
@@ -22,7 +21,11 @@
   .overlay {
     position: relative;
     z-index: 1;
-    text-align: center;
+    margin: 237px 0px 27px calc((100% - 980px)* 0);
+    left: 60px;
+    grid-area: 1 / 1 / 2 / 2;
+    justify-self: start;
+    align-self: start;
   }
   
   .overlay h1 {

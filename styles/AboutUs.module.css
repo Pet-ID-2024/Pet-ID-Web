@@ -1,0 +1,44 @@
+/* AboutMe.module.css */
+.container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+    background-color: #f8f8f8;
+  }
+  
+  .imageContainer {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+    margin-right: 14%;
+  }
+  
+  .image {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .textContainer {
+    position: absolute;
+    right: 30%;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 20%;
+    padding: 20px;
+    background-color: #a0522d; /* Match the brown color from the image */
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .textContainer h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .textContainer p {
+    font-size: 14px;
+    line-height: 1.5em;
+  }
+  

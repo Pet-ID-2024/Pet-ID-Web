@@ -17,8 +17,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <meta name="description" content="Welcome to Wendy's Dog Salon" />
     </head>
     <body>
+      <div id="SITE_HEADER-placeholder" className="SITE_HEADER-placeholder"></div>
       <Header />
-      <main>{children}</main>
+      <main style={{marginTop:'8%'}}>{children}</main>
       <Footer />
     </body>
     </html>

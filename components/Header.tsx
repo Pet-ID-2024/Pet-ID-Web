@@ -9,16 +9,16 @@ import styles from '@/styles/Header.module.css';
 const Header: React.FC = () => {
   return (
     <header className={styles.header}>
+      <div className={styles.headerContainer}>
+      <div className={styles.headerContainer_}>        
       <div className={styles.logo}>
         <Image src="/logo.png" alt="Wendy's Dog Salon" width={50} height={50} />
         <h1>Wendy's Dog Salon</h1>
       </div>
-      <div className={styles.search}>
-        <FontAwesomeIcon icon={faSearch} className={styles.searchIcon} />
-        <input type="text" placeholder="Search..." />
-      </div>
       <nav className={styles.nav}>
         <ul>
+          <li><FontAwesomeIcon icon={faSearch} className={styles.icon} />
+          <input type="text" placeholder="Search..." /></li>
           <li><a href="#home">Home</a></li>
           <li><a href="#book">Book Online</a></li>
           <li><a href="#blog">Blog</a></li>
@@ -29,6 +29,8 @@ const Header: React.FC = () => {
           <li><a href="#contact" className={styles.button}>Book Now</a></li>
         </ul>
       </nav>
+      </div>
+      </div>
     </header>
   );
 };

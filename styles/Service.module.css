@@ -1,0 +1,58 @@
+/* Services.module.css */
+.services {
+    text-align: center;
+    padding: 50px 0;
+    background-color: #f8f8f8;
+  }
+  
+  .services h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+  
+  .servicesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin: 0% 13%;
+  }
+  
+  .service {
+    width: calc(33% - 20px); /* Adjust to show 2 items per row */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    background-color: #f8f8f8;
+  }
+  
+  .service img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .service h3 {
+    font-size: 24px;
+    margin-top: 20px;
+  }
+  
+  .service p {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+  }
+  
+  .bookNow {
+    margin-top: 40px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
