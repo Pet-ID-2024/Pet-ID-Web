@@ -12,8 +12,8 @@ const Header: React.FC = () => {
       <div className={styles.headerContainer}>
       <div className={styles.headerContainer_}>        
       <div className={styles.logo}>
-        <Image src="/logo.png" alt="Wendy's Dog Salon" width={50} height={50} />
-        <h1>Wendy's Dog Salon</h1>
+        <Image src="/images/logo.png" alt="Wendy's Dog Salon" width={50} height={50} />
+        <h1>Wendy&apos;s Dog Salon</h1>
       </div>
       <nav className={styles.nav}>
         <ul>

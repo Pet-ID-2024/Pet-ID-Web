@@ -14,6 +14,8 @@
     display: flex;
     justify-content: center;
     margin-right: 14%;
+    opacity: 0; /* Initially hidden */
+    transform: translateX(-100%); /* Off-screen */
   }
   
   .image {
@@ -22,14 +24,15 @@
   
   .textContainer {
     position: absolute;
-    right: 30%;
-    top: 50%;
+    right: 30%;    
     transform: translateY(-50%);
     max-width: 20%;
     padding: 20px;
     background-color: #a0522d; /* Match the brown color from the image */
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0; /* Initially hidden */
+    transform: translateX(100%); /* Off-screen */
   }
   
   .textContainer h2 {
@@ -42,3 +45,71 @@
     line-height: 1.5em;
   }
   
+  @keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+  }
+
+  @keyframes slideInRight {
+      from {
+          transform: translateX(100%);
+          opacity: 0;
+      }
+      to {
+          transform: translateX(0);
+          opacity: 1;
+      }
+  }
+
+.slideInLeft {
+    animation: slideInLeft 1s forwards;
+    opacity: 1;
+}
+
+.slideInRight {
+    animation: slideInRight 1s forwards;
+    opacity: 1;
+}
+
+.slideOutLeft {
+  animation: slideOutLeft 1s forwards;
+  opacity: 1;
+}
+
+.slideOutRight {
+  animation: slideOutRight 1s forwards;
+  opacity: 1;
+}
+
+@keyframes slideOutLeft {
+  from {
+      transform: translateX(0);
+      opacity: 1;
+  }
+  to {
+      transform: translateX(-100%);
+      opacity: 0;
+  }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+
+.hidden {
+  opacity: 0; /* Hidden until animation is triggered */
+}

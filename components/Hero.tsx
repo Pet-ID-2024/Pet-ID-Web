@@ -6,14 +6,14 @@ const Hero: React.FC = () => {
   return (
     <section className={styles.hero}>
       <Image
-        src="/hero_dog.webp"
+        src="/images/hero_dog.webp"
         alt="Dog"
         layout="fill"
         objectFit="cover"
         quality={100}
       />
       <div className={styles.overlay}>
-        <h1>Wendy's Dog Salon</h1>
+        <h1>Wendy&apos;s Dog Salon</h1>
         <p>A loving, professional dog care in San Francisco</p>
         <a href="#contact" className={styles.button}>Book Now</a>
       </div>

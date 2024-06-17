@@ -1,5 +1,5 @@
-// Services.tsx
-import React from 'react';
+'use client'
+import React, { useEffect, useRef, useState } from 'react';
 import styles from '@/styles/Service.module.css'; // Import the CSS module
 import Image from 'next/image';
 
@@ -27,12 +27,41 @@ const services = [
 ];
 
 const Services: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(()=>{
+    const observerOption = {
+      threshold : 0.5
+    }
+
+    const handleIntersection = (entries : IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          setInView(true);
+          observer.disconnect();
+        }
+      })
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, observerOption);
+
+    if(containerRef.current){
+      observer.observe(containerRef.current);
+    }
+
+    return () =>{
+      if (observer && containerRef.current){
+        observer.unobserve(containerRef.current);
+      }
+    };
+  },[])
   return (
-    <section id="services" className={styles.services}>
+    <section id="services" className={styles.services} ref={containerRef}>
       <h2>Our Services</h2>
       <div className={styles.servicesContainer}>
         {services.map((service, index) => (
-          <div className={styles.service} key={index}>
+          <div className={`${styles.service} ${inView ? styles[`flyIn${index % 4}`] : ''}`} key={index}>
             <Image src={service.image} alt={service.title} className={styles.serviceImage}
             width = {400}
             height= {300}/>
