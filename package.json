@@ -13,6 +13,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "axios": "^1.7.3",
     "babel-plugin-react-compiler": "^0.0.0-experimental-938cd9a-20240601",
     "next": "^15.0.0-rc.0",
     "react": "^19.0.0-rc-6d3110b4d9-20240531",

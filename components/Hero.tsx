@@ -13,9 +13,11 @@ const Hero: React.FC = () => {
         quality={100}
       />
       <div className={styles.overlay}>
-        <h1>Wendy&apos;s Dog Salon</h1>
-        <p>A loving, professional dog care in San Francisco</p>
-        <a href="#contact" className={styles.button}>Book Now</a>
+        <h1>Pet ID</h1>
+        <p>쉽고 빠르게
+           우리 강아지
+           등록하기</p>
+        <a href="#contact" className={styles.button}>자세히 보기</a>
       </div>
     </section>
   );

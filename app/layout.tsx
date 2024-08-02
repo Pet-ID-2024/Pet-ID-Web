@@ -13,8 +13,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
    
     <html lang="en">
     <head>
-      <title>Wendy&apos;s Dog Salon</title>
-      <meta name="description" content="Welcome to Wendy's Dog Salon" />
+      <title>PetId</title>
+      <meta name="description" content="PetId" />
     </head>
     <body>
       <div id="SITE_HEADER-placeholder" className="SITE_HEADER-placeholder"></div>
