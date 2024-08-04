@@ -30,19 +30,15 @@ const BannerForm = () => {
       }
       const textResponse = await saveBanner(bannerData);
       if (!textResponse.data) throw new Error('Failed to save text.');
-      
-      const presignedUrlResponse = await getPresignedUrl("bannerImage/"+image.name);
+      const filePath = "bannerImage/"+image.name;
+      const encodedFilePath = encodeURIComponent(filePath);
+      const presignedUrlResponse = await getPresignedUrl(encodedFilePath);
       const url = presignedUrlResponse.data;
       if (!url ) throw new Error('Failed to get presigned URL.');
 
-      const formData = new FormData();
-      for (const [key, value] of Object.entries(fields)) {
-        formData.append(key, value);
-      }
-      formData.append('file', image);
 
-      const uploadResponse = await uploadImage(url, formData);
-      if (uploadResponse.status !== 204) throw new Error('Failed to upload image.');
+      const uploadResponse = await uploadImage(url, image);
+      if (uploadResponse.status !== 200) throw new Error('Failed to upload image.');
 
       alert('Banner saved successfully!');
     } catch (err) {
