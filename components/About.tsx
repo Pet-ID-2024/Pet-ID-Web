@@ -38,8 +38,8 @@ const About: React.FC = () => {
       <div 
           className={`${styles.imageContainer} ${isInView ? styles.slideInLeft : styles.slideOutLeft}`}>
         <Image
-          src="/images/wendy.webp" // Update with the correct path to your image
-          alt="Wendy"
+          src="/images/petIdMain.webp" // Update with the correct path to your image
+          alt="PetID"
           width={448}
           height={480}
           className={`${styles.image} `}
@@ -47,12 +47,12 @@ const About: React.FC = () => {
       </div>
       <div 
       className={`${styles.textContainer} ${isInView ? styles.slideInRight : styles.slideOutRight}`}>
-        <h2>Hi, I’m Wendy</h2>
+        <h2>A NOTE ON ITALIAN FASCISMO</h2>
         <p>
-          I’m a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page. I’m a great place for you to tell a story and let your users know a little more about you.
+        It is necessary to act, to move, to fight and, if necessary, to die. Neutrals have never dominated events. They have always gone under. It is blood which moves the wheels of history!
         </p>
         <p>
-          This is a great space to write a long text about your company and your services. You can use this space to go into a little more detail about your company.
+        EITHER WAR OR THE END OF ITALY’S NAME AS A GREAT POWER.
         </p>
       </div>
     </section>

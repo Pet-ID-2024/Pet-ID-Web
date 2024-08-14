@@ -1,59 +1,131 @@
 /* src/styles/BannerForm.module.css */
+
 .bannerForm {
-    background-color: #f9f9f9;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 20px;
-    max-width: 500px;
-    margin: 20px auto;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
   }
   
-  .bannerForm h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+  .bannerForm h1, .bannerForm h2 {
     text-align: center;
+    margin-bottom: 1.5rem;
     color: #333;
   }
   
   .formGroup {
-    margin-bottom: 15px;
+    margin-bottom: 1.5rem;
   }
   
   .formGroup label {
     display: block;
+    margin-bottom: 0.5rem;
     font-weight: bold;
-    margin-bottom: 5px;
     color: #555;
   }
   
-  .formGroup input[type="text"],
+  .formGroup input[type="text"], 
+  .formGroup select, 
   .formGroup input[type="file"] {
-    width: 96%;
-    padding: 8px;
-    border: 1px solid #ddd;
+    width: calc(100% - 1rem);
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 1rem;
   }
   
   .button {
-    display: inline-block;
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #0070f3;
+    color: white;
     border: none;
     border-radius: 4px;
+    font-size: 1rem;
     cursor: pointer;
-    text-align: center;
-    font-size: 16px;
+    transition: background-color 0.3s ease;
   }
   
   .button:hover {
-    background-color: #0056b3;
+    background-color: #005bb5;
   }
   
   .error {
     color: red;
-    margin-top: 10px;
+    font-weight: bold;
     text-align: center;
   }
   
+  .bannerList {
+    margin-top: 2rem;
+  }
+  
+  .bannerList ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .bannerList li {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .bannerList p {
+    margin: 0.5rem 0;
+    color: #555;
+  }
+  
+  .bannerList button {
+    padding: 0.5rem 1rem;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .bannerList button:hover {
+    background-color: #005bb5;
+  }
+  
+  .bannerForm {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+  }
+  
+  .bannerItem {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .bannerText {
+    display: flex;
+    flex-direction: column;
+    margin-right: auto;
+  }
+  
+  .bannerText > * {
+    margin: 0.25rem 0;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }

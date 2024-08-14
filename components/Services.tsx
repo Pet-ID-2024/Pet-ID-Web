@@ -5,23 +5,23 @@ import Image from 'next/image';
 
 const services = [
   { 
-    title: 'Full Grooming', 
-    subtitle: 'This is Your Service Subtitle',
+    title: '​큐레이팅 반려 아이템', 
+    subtitle: 'curated item for your pet',
     image: '/images/service_dog1.webp' // Update with the correct path to your image
   },
   { 
-    title: 'Wash & Blow Dry', 
-    subtitle: 'This is Your Service Subtitle',
+    title: '쉬운 반려동물 등록', 
+    subtitle: 'Easy registration',
     image: '/images/service_dog2.webp' // Update with the correct path to your image
   },
   { 
-    title: 'Self Serve Dog Wash', 
-    subtitle: 'This is Your Service Subtitle',
+    title: '​내장칩 병원 안내', 
+    subtitle: 'Guide to Internal Chip Hospital',
     image: '/images/service_dog3.webp' // Update with the correct path to your image
   },
   { 
-    title: 'Nail Clipping', 
-    subtitle: 'This is Your Service Subtitle',
+    title: '펫아이디 모바일 카드', 
+    subtitle: 'Mobile card',
     image: '/images/service_dog4.webp' // Update with the correct path to your image
   },
 ];

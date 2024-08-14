@@ -24,7 +24,7 @@
   
   .textContainer {
     position: absolute;
-    right: 30%;    
+    right: 24%;    
     transform: translateY(-50%);
     max-width: 20%;
     padding: 20px;
@@ -58,7 +58,7 @@
 
   @keyframes slideInRight {
       from {
-          transform: translateX(100%);
+          transform: translateX(10%) translateY(-20%);
           opacity: 0;
       }
       to {

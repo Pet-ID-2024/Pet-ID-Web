@@ -11,10 +11,7 @@ const page: React.FC = () => {
     <>
       <Hero />
       <BannerForm />
-      <Services />
-      <About />
-      <Reviews />
-      <Contact />
+      
     </>
   );
 };
