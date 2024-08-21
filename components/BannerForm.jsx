@@ -23,7 +23,7 @@ const BannerForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchBanners("");
+        const response = await fetchBanners("ALL");
         setBanners(response.data);
       } catch (err) {
         setError('Failed to fetch banners.');
@@ -58,6 +58,17 @@ const BannerForm = () => {
         status,
       };
 
+      if (image) {
+        const filePath = `bannerImage/${image.name}`;
+        const encodedFilePath = encodeURIComponent(filePath);
+        const presignedUrlResponse = await getPresignedUrl(encodedFilePath);
+        const url = presignedUrlResponse.data;
+        if (!url) throw new Error('Failed to get presigned URL.');
+
+        const uploadResponse = await uploadImage(url, image);
+        if (uploadResponse.status !== 200) throw new Error('Failed to upload image.');
+      }
+      
       if (isEditing) {
         // Update existing banner
         await updateBanner(editId, bannerData);
@@ -66,20 +77,10 @@ const BannerForm = () => {
         // Create new banner
         const textResponse = await saveBanner(bannerData);
         if (!textResponse.data) throw new Error('Failed to save text.');
-        
-        if (image) {
-          const filePath = `bannerImage/${image.name}`;
-          const encodedFilePath = encodeURIComponent(filePath);
-          const presignedUrlResponse = await getPresignedUrl(encodedFilePath);
-          const url = presignedUrlResponse.data;
-          if (!url) throw new Error('Failed to get presigned URL.');
-
-          const uploadResponse = await uploadImage(url, image);
-          if (uploadResponse.status !== 200) throw new Error('Failed to upload image.');
-        }
-
         alert('Banner saved successfully!');
       }
+
+      
 
       setText('');
       setType('content');
@@ -88,7 +89,7 @@ const BannerForm = () => {
       setIsEditing(false);
       setEditId(null);
 
-      const response = await fetchBanners();
+      const response = await fetchBanners("ALL");
       setBanners(response.data);
     } catch (err) {
       setError(err.message);
