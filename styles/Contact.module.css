@@ -1,0 +1,82 @@
+/* ContactComponent.module.css */
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    padding: 40px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #f0f4f8;
+  }
+  
+  .contactInfo {
+    margin-left: 25%;
+    width: 20%;
+  }
+  
+  .contactInfo h2 {
+    margin-top: 0;
+    font-size: 2em;
+    color: #333;
+  }
+  
+  .contactInfo p {
+    margin: 10px 0;
+    color: #555;
+  }
+  
+  .contactForm {    
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin-right: 25%;
+  }
+  
+  .contactForm form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contactForm input,
+  .contactForm textarea {
+    margin-bottom: 20px;
+    padding: 10px 10px 10px 0;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    font-size: 16px;
+    background: none;
+  }
+  
+  .contactForm input:focus,
+  .contactForm textarea:focus {
+    outline: none;
+    border-bottom: 1px solid #333;
+  }
+  
+  .contactForm input::placeholder,
+  .contactForm textarea::placeholder {
+    color: #999;
+  }
+  
+  .contactForm textarea {
+    resize: vertical;
+    padding-left: 0;
+  }
+  
+  .contactForm button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .contactForm button:hover {
+    background-color: #555;
+  }
+  
