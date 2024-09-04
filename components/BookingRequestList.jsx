@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, Select, MenuItem, InputLabel, FormControl, Button, Typography, Paper, Grid, Pagination } from '@mui/material';
-import { fetchBookingList} from '@/services/api';
+import { fetchBookingList, sendBookingNoti} from '@/services/api';
 import styles from '@/styles/BookingRequestList.module.css'; // Use a similar CSS module for styles
 
 
@@ -31,9 +31,17 @@ const BookingRequestList = () => {
 
   const handleStatusFilterChange = (e) => setStatusFilter(e.target.value);
   const handlePageChange = (event, value) => setCurrentPage(value);
-  const handleButtonClick = (bookingId, buttonType) => {
+  const handleButtonClick = (booking,status) => {
     // Handle button click logic here, e.g., update booking status based on buttonType
-    console.log(`Booking ID: ${bookingId}, Button Type: ${buttonType}`);
+    const requestBody = {
+      id :booking.id, 
+      uid: booking.uid, 
+      hospitalId: booking.hospitalId, 
+      date:Date.now(), 
+      status};
+    console.log(requestBody);
+    sendBookingNoti(requestBody)
+    //console.log(`USER UID: ${uid}, status: ${status}`);
   };
 
   const indexOfLastBooking = currentPage * itemsPerPage;
@@ -67,8 +75,8 @@ const BookingRequestList = () => {
                 <Typography variant="body2">Date: {new Date(booking.date * 1000).toLocaleDateString()}</Typography>
                 <Typography variant="body2">Status: {booking.status}</Typography>
               </div>
-              <Button variant="outlined" color="primary" onClick={() => handleButtonClick(booking.id, 'C')}>C</Button>
-              <Button variant="outlined" color="secondary" onClick={() => handleButtonClick(booking.id, 'F')}>F</Button>
+              <Button variant="outlined" color="primary" onClick={() => handleButtonClick(booking,'CONFIRMED')}>C</Button>
+              <Button variant="outlined" color="secondary" onClick={() => handleButtonClick(booking, 'CANCELLED')}>F</Button>
             </Paper>
           </Grid>
         ))}

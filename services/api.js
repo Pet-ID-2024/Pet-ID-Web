@@ -10,7 +10,8 @@ const updateBanner = (id, bannerData) => axios.put(`http://43.203.1.26:8080/v1/b
 
 
 const fetchBookingList = (status) => axios.get('http://localhost:8080/v1/hospital/order',{params : {status : status}, headers: {'Authorization': 'test'}});
+const sendBookingNoti = (userData) => axios.post('http://localhost:8080/v1/notification/booking',userData, {headers: {'Authorization': 'test'}});
 
-export { saveBanner, getPresignedUrl, uploadImage, fetchBanners, updateBanner, fetchBannerImgs, fetchBookingList };
+export { saveBanner, getPresignedUrl, uploadImage, fetchBanners, updateBanner, fetchBannerImgs, fetchBookingList, sendBookingNoti };
 
   
