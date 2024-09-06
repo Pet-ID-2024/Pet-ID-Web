@@ -35,12 +35,12 @@ const BookingRequestList = () => {
     // Handle button click logic here, e.g., update booking status based on buttonType
     const requestBody = {
       id :booking.id, 
-      uid: booking.uid, 
+      memberId: booking.memberId, 
       hospitalId: booking.hospitalId, 
       date:Date.now(), 
       status};
-    console.log(requestBody);
     sendBookingNoti(requestBody)
+    alert("Notification has been sent.");
     //console.log(`USER UID: ${uid}, status: ${status}`);
   };
 
@@ -55,10 +55,10 @@ const BookingRequestList = () => {
       <FormControl fullWidth margin="normal">
         <InputLabel>Status Filter</InputLabel>
         <Select value={statusFilter} onChange={handleStatusFilterChange}>
-          <MenuItem value="ALL">All</MenuItem>
-          <MenuItem value="COMPLETED">Completed</MenuItem>
-          <MenuItem value="CANCELLED">Cancelled</MenuItem>
           <MenuItem value="PENDING">Pending</MenuItem>
+          <MenuItem value="ALL">All</MenuItem>
+          <MenuItem value="COMPLETED">CONFIRMED</MenuItem>
+          <MenuItem value="CANCELLED">CANCELLED</MenuItem>
         </Select>
       </FormControl>
 
@@ -70,13 +70,13 @@ const BookingRequestList = () => {
             <Paper className={styles.bookingItem} elevation={3}>
               <div className={styles.bookingText}>
                 <Typography variant="body1">Booking ID: {booking.id}</Typography>
-                <Typography variant="body2">UID: {booking.uid || 'N/A'}</Typography>
+                <Typography variant="body2">Member ID: {booking.memberId || 'N/A'}</Typography>
                 <Typography variant="body2">Hospital ID: {booking.hospitalId}</Typography>
                 <Typography variant="body2">Date: {new Date(booking.date * 1000).toLocaleDateString()}</Typography>
                 <Typography variant="body2">Status: {booking.status}</Typography>
               </div>
-              <Button variant="outlined" color="primary" onClick={() => handleButtonClick(booking,'CONFIRMED')}>C</Button>
-              <Button variant="outlined" color="secondary" onClick={() => handleButtonClick(booking, 'CANCELLED')}>F</Button>
+              <Button variant="outlined" color="primary" onClick={() => handleButtonClick(booking,'CONFIRMED')}>CONFIRMED</Button>
+              <Button variant="outlined" color="secondary" onClick={() => handleButtonClick(booking, 'CANCELLED')}>CANCELLED</Button>
             </Paper>
           </Grid>
         ))}
