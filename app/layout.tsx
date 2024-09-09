@@ -19,7 +19,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <body>
       <div id="SITE_HEADER-placeholder" className="SITE_HEADER-placeholder"></div>
       <Header />
-      <main style={{marginTop:'8%'}}>{children}</main>
+      <main style={{marginTop:'8%', display: 'flex', flexWrap: 'wrap'}}>{children}</main>
       <Footer />
     </body>
     </html>

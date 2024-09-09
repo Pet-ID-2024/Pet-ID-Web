@@ -10,18 +10,19 @@ import styles from '@/styles/BookingRequestList.module.css'; // Use a similar CS
 
 const BookingRequestList = () => {
   const [bookings, setBookings] = useState([]);
-  const [statusFilter, setStatusFilter] = useState('COMPLETED');
+  const [statusFilter, setStatusFilter] = useState('PENDING');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10); // Number of items per page
-  const [error, setError] = useState(null);
+  const [resultMessage, setResultMessage] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetchBookingList(statusFilter);
         setBookings(response.data);
+        setResultMessage('Successfully fetched Order data');
       } catch (err) {
-        setError('Failed to fetch booking requests.');
+        setResultMessage('Failed to fetch booking requests.');
         console.error('Error fetching booking requests:', err);
       }
     };
@@ -62,18 +63,18 @@ const BookingRequestList = () => {
         </Select>
       </FormControl>
 
-      {error && <Typography color="error">Error: {error}</Typography>}
+      {resultMessage && <Typography color={resultMessage.startsWith('F') ? 'red' : 'green' }> {resultMessage.startsWith('F') ? "error : " :""}{resultMessage}</Typography>}
 
       <Grid container spacing={2}>
         {currentBookings.map((booking) => (
           <Grid item xs={12} key={booking.id}>
             <Paper className={styles.bookingItem} elevation={3}>
               <div className={styles.bookingText}>
-                <Typography variant="body1">Booking ID: {booking.id}</Typography>
-                <Typography variant="body2">Member ID: {booking.memberId || 'N/A'}</Typography>
-                <Typography variant="body2">Hospital ID: {booking.hospitalId}</Typography>
-                <Typography variant="body2">Date: {new Date(booking.date * 1000).toLocaleDateString()}</Typography>
-                <Typography variant="body2">Status: {booking.status}</Typography>
+                <Typography variant="body1">예약 ID: {booking.id}</Typography>
+                <Typography variant="body2">회원 이름: {booking.email || 'N/A'}</Typography>
+                <Typography variant="body2">병원 이름: {booking.hospitalName || 'N/A'}</Typography>
+                <Typography variant="body2">예약일시: {new Date(booking.date * 1000).toLocaleDateString()}</Typography>
+                <Typography variant="body2">상태: {booking.status}</Typography>
               </div>
               <Button variant="outlined" color="primary" onClick={() => handleButtonClick(booking,'CONFIRMED')}>CONFIRMED</Button>
               <Button variant="outlined" color="secondary" onClick={() => handleButtonClick(booking, 'CANCELLED')}>CANCELLED</Button>
