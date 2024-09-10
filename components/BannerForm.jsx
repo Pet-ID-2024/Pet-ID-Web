@@ -111,7 +111,7 @@ const BannerForm = () => {
 
   return (
     <div className={styles.bannerForm}>
-    <Typography variant="h4" gutterBottom>{isEditing ? 'Edit Banner' : 'Save Banner'}</Typography>
+    <Typography variant="h4" gutterBottom>{isEditing ? 'Edit Banner' : 'Manage Banner'}</Typography>
     <form onSubmit={handleSubmit}>
       <FormControl fullWidth margin="normal">
         <TextField label="Text" value={text} onChange={handleTextChange} required />
