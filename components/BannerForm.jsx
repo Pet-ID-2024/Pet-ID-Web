@@ -38,7 +38,6 @@ const BannerForm = () => {
     e.preventDefault();
     const response = await fetchBannerImgs(filePath);
     setBannerImg(response);
-
   }
   const handleTextChange = (e) => setText(e.target.value);
   const handleTypeChange = (e) => setType(e.target.value);

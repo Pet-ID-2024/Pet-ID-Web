@@ -1,17 +1,24 @@
-// src/services/api.js
-import axios from 'axios';
+import api from './axiosInterceptor';
 
-const saveBanner = (BannerData) => axios.post(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/banner`, BannerData, {headers: {'Authorization': 'test'}});
-const getPresignedUrl = (filePath) => axios.post(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/banner/presigned-put-url`, filePath, {headers: {"Content-Type": "text/plain", 'Authorization': 'test'}});
-const uploadImage = (url, image) => axios.put(url, image, { headers: { 'Content-Type': image.type }});
-const fetchBanners = (type) => axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/banner/type`,{params : {type : type}, headers: {'Authorization': 'test'}});
-const fetchBannerImgs = (filePath) => axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/banner/presigned-put-url`, filePath,{headers: {'Authorization': 'test'}});
-const updateBanner = (id, bannerData) => axios.put(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/banner/${id}`, bannerData, {headers: {'Authorization': 'test'}});
+export const getToken = () => api.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/auth/test/token`,{params : {memberId : 12}});
+
+const saveBanner = (BannerData) => api.post(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/banner`, BannerData);
+const getPresignedUrl = (filePath) => api.post(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/banner/presigned-put-url`, filePath, {headers: {"Content-Type": "text/plain"}});
+const uploadImage = (url, image) => api.put(url, image, { headers: { 'Content-Type': image.type }});
+const fetchBanners = (type) => api.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/banner/type`,{params : {type : type},});
+const fetchBannerImgs = (filePath) => api.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/banner/presigned-put-url`, filePath,);
+const updateBanner = (id, bannerData) => api.put(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/banner/${id}`, bannerData, );
 
 
-const fetchBookingList = (status) => axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/hospital/order`,{params : {status : status}, headers: {'Authorization': 'test'}});
-const sendBookingNoti = (userData) => axios.post(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/notification/booking`,userData, {headers: {'Authorization': 'test'}});
+const fetchBookingList = (status) => api.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/manage/hospital/order`,{params : {status : status}});
+const sendBookingNoti = (userData) => api.post(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/notification/booking`,userData);
 
-export { saveBanner, getPresignedUrl, uploadImage, fetchBanners, updateBanner, fetchBannerImgs, fetchBookingList, sendBookingNoti };
+const fetchContentList = (category) => api.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/content`,{params : {category : category}});
+export const getContentPresignedUrl = (filePath) => api.post(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/content/presigned-put-url`, filePath);
+export const fetchContentImgs = (filePath) => api.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER_URL}/v1/content/presigned-get-url`, {
+    params: { filePath },     
+  });
+
+export { saveBanner, getPresignedUrl, uploadImage, fetchBanners, updateBanner, fetchBannerImgs, fetchBookingList, sendBookingNoti , fetchContentList};
 
   

@@ -3,25 +3,35 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "postinstall": "npm install --legacy-peer-deps",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^43.2.0",
+    "@ckeditor/ckeditor5-react": "^9.3.1",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@mui/icons-material": "^6.1.4",
     "@mui/lab": "^5.0.0-alpha.173",
     "@mui/material": "^5.16.6",
+    "autoprefixer": "^10.4.20",
     "axios": "^1.7.3",
     "babel-plugin-react-compiler": "^0.0.0-experimental-938cd9a-20240601",
+    "moment": "^2.30.1",
     "next": "^15.0.0-rc.0",
     "react": "^19.0.0-rc-6d3110b4d9-20240531",
-    "react-dom": "^19.0.0-rc-6d3110b4d9-20240531"
+    "react-dom": "^19.0.0-rc-6d3110b4d9-20240531",
+    "react-query": "^3.39.3",
+    "react-query-devtools": "^2.6.3",
+    "tailwind": "^4.0.0",
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -29,8 +39,8 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
     "typescript": "^5"
   }
 }

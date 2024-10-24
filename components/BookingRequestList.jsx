@@ -60,6 +60,7 @@ const BookingRequestList = () => {
           <MenuItem value="ALL">All</MenuItem>
           <MenuItem value="COMPLETED">CONFIRMED</MenuItem>
           <MenuItem value="CANCELLED">CANCELLED</MenuItem>
+          <MenuItem value="CANCELLED">COMPLETED</MenuItem>
         </Select>
       </FormControl>
 
@@ -71,7 +72,7 @@ const BookingRequestList = () => {
             <Paper className={styles.bookingItem} elevation={3}>
               <div className={styles.bookingText}>
                 <Typography variant="body1">예약 ID: {booking.id}</Typography>
-                <Typography variant="body2">회원 이름: {booking.email || 'N/A'}</Typography>
+                <Typography variant="body2">회원 이름: {booking.name || 'N/A'}</Typography>
                 <Typography variant="body2">병원 이름: {booking.hospitalName || 'N/A'}</Typography>
                 <Typography variant="body2">예약일시: {new Date(booking.date * 1000).toLocaleDateString()}</Typography>
                 <Typography variant="body2">상태: {booking.status}</Typography>
