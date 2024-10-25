@@ -24,6 +24,8 @@
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.3",
     "babel-plugin-react-compiler": "^0.0.0-experimental-938cd9a-20240601",
+    "ckeditor5": "^43.2.0",
+    "ckeditor5-premium-features": "^43.2.0",
     "moment": "^2.30.1",
     "next": "^15.0.0-rc.0",
     "react": "^19.0.0-rc-6d3110b4d9-20240531",

@@ -10,17 +10,28 @@ import {
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import moment from 'moment';
-import { fetchContentImgs } from '@/services/api';
-import { useEffect, useState } from 'react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { fetchContentImgs, updateContent } from '@/services/api';
+import { useEffect, useRef, useState } from 'react';
 
 export default function ContentDetail({ content }) {
   if (!content) return null;
 
+  const editorRef = useRef()
+  const [editorLoaded, setEditorLoaded] = useState(false)
+  const { CKEditor, ClassicEditor } = editorRef.current || {}
+
   const [contentImg, setContentImg] = useState(null);
   const [isEditing, setIsEditing] = useState(false); // For toggling edit mode
+  const [title, setTitle] = useState('');
   const [editableContent, setEditableContent] = useState(content.body); // Content for CKEditor
+  useEffect(() => {
+    editorRef.current = {
+      // CKEditor: require('@ckeditor/ckeditor5-react'), // depricated in v3
+      CKEditor: require('@ckeditor/ckeditor5-react').CKEditor, // v3+
+      ClassicEditor: require('@ckeditor/ckeditor5-build-classic')
+    }
+    setEditorLoaded(true)
+  }, [])
 
   useEffect(() => {
     const getContentImg = async (filePath) => {
@@ -35,9 +46,17 @@ export default function ContentDetail({ content }) {
     setIsEditing(!isEditing);
   };
 
-  const handleSave = () => {
-    // Here, you can handle saving the updated content, such as sending it to the server
-    console.log('Updated Content:', editableContent);
+  const handleDelete = () => {
+    deleteContent(content.contentId);
+  };
+
+  const handleUpdate = () => {
+    const contentData ={
+      contentId : content.contentId,
+      title : title,
+      body : editableContent
+    }
+    updateContent(contentData);
     setIsEditing(false); // Exit edit mode
   };
 
@@ -59,7 +78,7 @@ export default function ContentDetail({ content }) {
           {content.title}
         </Typography>
 
-        {isEditing ? (
+        {(editorLoaded && isEditing) ? (
           // Render CKEditor when in edit mode
           <CKEditor
             editor={ClassicEditor}
@@ -68,12 +87,15 @@ export default function ContentDetail({ content }) {
               const data = editor.getData();
               setEditableContent(data);
             }}
+            config={{
+              ckfinder: {
+                uploadUrl: '/api/upload', // Set this to your backend endpoint for file uploads
+              },
+            }}
           />
         ) : (
           // Render content normally when not editing
-          <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-            <div dangerouslySetInnerHTML={{ __html: editableContent }} />
-          </Typography>
+          <div dangerouslySetInnerHTML={{ __html: editableContent }} />
         )}
 
         <Typography variant="caption" color="text.secondary" sx={{ mb: 2 }}>
@@ -91,11 +113,23 @@ export default function ContentDetail({ content }) {
         <Button
           variant="contained"
           color={isEditing ? 'secondary' : 'primary'}
-          onClick={isEditing ? handleSave : handleEditToggle}
+          onClick={isEditing ? handleUpdate : handleEditToggle}
           sx={{ mb: 2 }}
         >
           {isEditing ? 'Save' : 'Edit'}
         </Button>
+        
+        <Button
+          variant="contained"
+          color="error"
+          onClick={isEditing ? handleEditToggle : handleDelete}
+          sx={{ mb: 2 ,  
+            ...(isEditing ? { ml: 2 } : { float: 'right' }) // Conditional style
+          }}
+        >
+          {isEditing ? 'cancel' : 'delete'}
+        </Button>
+        
 
         {/* Like Button */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
