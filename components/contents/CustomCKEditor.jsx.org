@@ -1,0 +1,66 @@
+/*import { useEffect, useRef, useState } from 'react';
+import { Font } from '@ckeditor/ckeditor5-react';
+
+const CustomCKEditor = ({data, handleEditorChange}) => {
+  const editorRef = useRef()
+  const { CKEditor, ClassicEditor } = editorRef.current || {}
+  const [editorLoaded, setEditorLoaded] = useState(false)  
+
+  useEffect(() => {
+    editorRef.current = {
+      // CKEditor: require('@ckeditor/ckeditor5-react'), // depricated in v3
+      CKEditor: require('@ckeditor/ckeditor5-react').CKEditor, // v3+
+      ClassicEditor: require('@ckeditor/ckeditor5-build-classic')
+    }    
+    setEditorLoaded(true)
+  }, [])
+  
+  
+
+  return (
+    editorLoaded &&
+    <CKEditor
+      editor={ClassicEditor}
+      data={data}
+      onChange={(event, editor) => {
+        handleEditorChange(event, editor)        
+      }}
+      config={{
+        plugins: [Font],
+        toolbar:[
+          'undo', 'redo',
+          '|',
+          'heading',
+          '|',
+          'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+          '|',
+          'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+          '|',
+          'link', 'uploadImage', 'blockQuote', 'codeBlock',
+          '|',
+          'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
+      ],
+        fontFamily: {
+          options: [
+            'default',
+            'Arial, Helvetica, sans-serif',
+            'Courier New, Courier, monospace',
+            'Georgia, serif',
+            'Lucida Sans Unicode, Lucida Grande, sans-serif',
+            'Tahoma, Geneva, sans-serif',
+            'Times New Roman, Times, serif',
+            'Verdana, Geneva, sans-serif',
+          ],
+        },
+        fontSize: {
+          options: [ 'default', 'tiny', 'small', 'big', 'huge', '8px', '12px', '14px', '16px', '18px', '24px', '32px' ],
+        },
+        ckfinder: {
+          uploadUrl: '/api/upload', // Set this to your backend endpoint for file uploads
+        },
+      }}
+    />
+  );
+};
+
+export default CustomCKEditor;*/

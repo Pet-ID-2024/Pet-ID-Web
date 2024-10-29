@@ -6,32 +6,25 @@ import {
   Typography,
   IconButton,
   Button,
+  Input,
+  TextField,
+  FormControl,
 } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import moment from 'moment';
 import { fetchContentImgs, updateContent } from '@/services/api';
 import { useEffect, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
 
 export default function ContentDetail({ content }) {
   if (!content) return null;
-
-  const editorRef = useRef()
-  const [editorLoaded, setEditorLoaded] = useState(false)
-  const { CKEditor, ClassicEditor } = editorRef.current || {}
-
+  
+  const CustomEditor = dynamic( () => import( '@/components/contents/CustomCKEditor' ), { ssr: false } );
   const [contentImg, setContentImg] = useState(null);
   const [isEditing, setIsEditing] = useState(false); // For toggling edit mode
   const [title, setTitle] = useState('');
-  const [editableContent, setEditableContent] = useState(content.body); // Content for CKEditor
-  useEffect(() => {
-    editorRef.current = {
-      // CKEditor: require('@ckeditor/ckeditor5-react'), // depricated in v3
-      CKEditor: require('@ckeditor/ckeditor5-react').CKEditor, // v3+
-      ClassicEditor: require('@ckeditor/ckeditor5-build-classic')
-    }
-    setEditorLoaded(true)
-  }, [])
+  const editorRef = useRef();  
 
   useEffect(() => {
     const getContentImg = async (filePath) => {
@@ -46,6 +39,10 @@ export default function ContentDetail({ content }) {
     setIsEditing(!isEditing);
   };
 
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
   const handleDelete = () => {
     deleteContent(content.contentId);
   };
@@ -54,11 +51,15 @@ export default function ContentDetail({ content }) {
     const contentData ={
       contentId : content.contentId,
       title : title,
-      body : editableContent
+      body : editorRef.current?.getData()
     }
     updateContent(contentData);
     setIsEditing(false); // Exit edit mode
   };
+
+  const handleEditor = (editor) => {
+    setEditor(editor)
+  }
 
   return (
     <Card sx={{ maxWidth: 600, margin: 'auto' }}>
@@ -74,28 +75,30 @@ export default function ContentDetail({ content }) {
       )}
       {/* Content Body */}
       <CardContent>
+      {isEditing ?
+        <FormControl fullWidth margin="normal">
+          <TextField
+            required
+            label="Title"
+            defaultValue="Hello World"
+            onChange={handleTitleChange}
+            value={content.title}
+          />
+        </FormControl>
+        :
         <Typography variant="h4" component="div" gutterBottom>
           {content.title}
-        </Typography>
-
-        {(editorLoaded && isEditing) ? (
-          // Render CKEditor when in edit mode
-          <CKEditor
-            editor={ClassicEditor}
-            data={editableContent}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              setEditableContent(data);
-            }}
-            config={{
-              ckfinder: {
-                uploadUrl: '/api/upload', // Set this to your backend endpoint for file uploads
-              },
-            }}
+        </Typography>    
+      }
+        {isEditing ? (
+          // Render CKEditor when in edit mode          
+          <CustomEditor
+            data={content.body}             
+            ref = {editorRef}       
           />
         ) : (
           // Render content normally when not editing
-          <div dangerouslySetInnerHTML={{ __html: editableContent }} />
+          <div dangerouslySetInnerHTML={{ __html: content.body }} />
         )}
 
         <Typography variant="caption" color="text.secondary" sx={{ mb: 2 }}>
