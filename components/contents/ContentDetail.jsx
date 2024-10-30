@@ -5,8 +5,7 @@ import {
   CardContent,
   Typography,
   IconButton,
-  Button,
-  Input,
+  Button,  
   TextField,
   FormControl,
 } from '@mui/material';
@@ -23,10 +22,11 @@ export default function ContentDetail({ content }) {
   const CustomEditor = dynamic( () => import( '@/components/contents/CustomCKEditor' ), { ssr: false } );
   const [contentImg, setContentImg] = useState(null);
   const [isEditing, setIsEditing] = useState(false); // For toggling edit mode
-  const [title, setTitle] = useState('');
+  const titleRef = useRef();    
   const editorRef = useRef();  
 
   useEffect(() => {
+    setIsEditing(false)
     const getContentImg = async (filePath) => {
       const response = await fetchContentImgs(filePath);
       setContentImg(response.data);
@@ -39,22 +39,21 @@ export default function ContentDetail({ content }) {
     setIsEditing(!isEditing);
   };
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
-
   const handleDelete = () => {
     deleteContent(content.contentId);
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     const contentData ={
-      contentId : content.contentId,
-      title : title,
+      title : titleRef.current.value,
       body : editorRef.current?.getData()
     }
-    updateContent(contentData);
-    setIsEditing(false); // Exit edit mode
+    const response = await updateContent(content.contentId, contentData);
+    if (response.status == "200"){
+      alert("저장되었습니다.");    
+    }else {
+      alert("저장 과정에서 오류가 발생했습니다.")    
+    }    
   };
 
   const handleEditor = (editor) => {
@@ -76,30 +75,29 @@ export default function ContentDetail({ content }) {
       {/* Content Body */}
       <CardContent>
       {isEditing ?
+      <>
         <FormControl fullWidth margin="normal">
           <TextField
             required
-            label="Title"
-            defaultValue="Hello World"
-            onChange={handleTitleChange}
-            value={content.title}
+            label="Title"                        
+            defaultValue={content.title || ""}
+            inputRef={titleRef}
           />
         </FormControl>
+        <CustomEditor
+          data={content.body}             
+          ref = {editorRef}       
+        />
+        </>
         :
+        <>
         <Typography variant="h4" component="div" gutterBottom>
           {content.title}
         </Typography>    
+        {/* Render content normally when not editing */}
+        <div dangerouslySetInnerHTML={{ __html: content.body }} />
+        </>
       }
-        {isEditing ? (
-          // Render CKEditor when in edit mode          
-          <CustomEditor
-            data={content.body}             
-            ref = {editorRef}       
-          />
-        ) : (
-          // Render content normally when not editing
-          <div dangerouslySetInnerHTML={{ __html: content.body }} />
-        )}
 
         <Typography variant="caption" color="text.secondary" sx={{ mb: 2 }}>
           Category: {content.category}

@@ -18,7 +18,7 @@ export const getContentPresignedUrl = (filePath) => api.post('/v1/content/presig
 export const fetchContentImgs = (filePath) => api.get('/v1/content/presigned-get-url', {
     params: { filePath },     
   });
-export const updateContent = (contentData) => api.put(`/v1/content/${contentData.contentId}`, contentData, );
+export const updateContent = (contentId, contentData) => api.put(`/v1/content/${contentId}`, contentData );
 export const createContent = (contentData) => api.post('/v1/content', contentData);
 export const deleteContent = (contentId) => api.delete(`/v1/content${contentId}`);
 

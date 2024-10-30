@@ -1,4 +1,3 @@
-import { useState, useEffect, useRef } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 
 import {
@@ -63,18 +62,10 @@ import {
 
 import 'ckeditor5/ckeditor5.css';
 import '../../styles/globals.css'
+import CustomUploadAdapterPlugin from '@/app/utils/CustomUploadAdaptor';
 
 const CustomCKEditor = ({data, ref}  )  => {
   
-	const [isLayoutReady, setIsLayoutReady] = useState(false);
-  const [ckeditor,setEditor] = useState(null);
-  const editorRef = useRef();
-
-	useEffect(() => {
-		setIsLayoutReady(true);
-
-		return () => setIsLayoutReady(false);
-	}, []);
 
 	const editorConfig = {
 		toolbar: {
@@ -112,7 +103,7 @@ const CustomCKEditor = ({data, ref}  )  => {
 			AutoLink,
 			Autosave,
 			BalloonToolbar,
-			Base64UploadAdapter,
+			//Base64UploadAdapter,
 			BlockQuote,
 			Bold,
 			CodeBlock,
@@ -161,7 +152,8 @@ const CustomCKEditor = ({data, ref}  )  => {
 			TableToolbar,
 			TextTransformation,
 			Underline,
-			Undo
+			Undo,
+      CustomUploadAdapterPlugin
 		],
 		balloonToolbar: ['bold', 'italic', '|', 'link', 'insertImage'],
 		fontFamily: {
@@ -226,7 +218,11 @@ const CustomCKEditor = ({data, ref}  )  => {
 				'imageStyle:breakText',
 				'|',
 				'resizeImage'
-			]
+			],
+      upload: {
+        types: ['jpeg', 'png', 'gif', 'bmp', 'webp'], // Allowed image formats
+        maxFileSize: 500 * 1024, // Set a 500 KB limit for Base64 images
+      },
 		},
 		initialData:data,
 		link: {
@@ -249,21 +245,15 @@ const CustomCKEditor = ({data, ref}  )  => {
 		placeholder: 'Type or paste your content here!',
 		table: {
 			contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
-		}
+		},    
 	};
 
   return (    
-    <div >{isLayoutReady && 
+    <div >
       <CKEditor  
         editor={ClassicEditor} 
         config={editorConfig}
-        onReady={(editor) => {
-          // Access the editor instance here and store it
-          console.log('Editor is ready to use!', editor.getData());                    
-          ref.current = editor;
-        }} />
-        
-      }
+        onReady={(editor) => {ref.current = editor;}} />
     </div>
   );
 };
