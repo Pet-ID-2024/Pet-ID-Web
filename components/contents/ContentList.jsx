@@ -62,9 +62,11 @@ export default function ContentList({ contentItems, onDelete, onUpdate, onViewDe
                   open={Boolean(anchorEl) && currentContentId === item.contentId}
                   onClose={handleClose}
                 >
+                  {/*
                   <MenuItem onClick={() => onViewDetails(item.contentId)}>View Details</MenuItem>
                   <MenuItem onClick={() => onUpdate(item.contentId)}>Update</MenuItem>
                   <MenuItem onClick={() => onDelete(item.contentId)}>Delete</MenuItem>
+                  */}
                 </Menu>
               </TableCell>
             </TableRow>

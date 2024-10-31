@@ -60,3 +60,7 @@ footer {
 address {
     font-style: normal;
 }
+
+.ck-editor__editable {
+    min-height: 400px;
+}

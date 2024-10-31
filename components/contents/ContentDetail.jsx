@@ -48,9 +48,10 @@ export default function ContentDetail({ content }) {
       title : titleRef.current.value,
       body : editorRef.current?.getData()
     }
-    const response = await updateContent(content.contentId, contentData);
+  const response = await updateContent(content.contentId, contentData);
     if (response.status == "200"){
       alert("저장되었습니다.");    
+      setIsEditing(false);
     }else {
       alert("저장 과정에서 오류가 발생했습니다.")    
     }    
@@ -62,16 +63,7 @@ export default function ContentDetail({ content }) {
 
   return (
     <Card sx={{ maxWidth: 600, margin: 'auto' }}>
-      {/* Content Image */}
-      {content.imageUrl && (
-        <CardMedia
-          component="img"
-          height="300"
-          image={contentImg}
-          alt={content.title}
-          sx={{ objectFit: 'cover' }}
-        />
-      )}
+      
       {/* Content Body */}
       <CardContent>
       {isEditing ?
@@ -113,7 +105,7 @@ export default function ContentDetail({ content }) {
         {/* Edit Button */}
         <Button
           variant="contained"
-          color={isEditing ? 'secondary' : 'primary'}
+          color={isEditing ? 'success' : 'primary'}
           onClick={isEditing ? handleUpdate : handleEditToggle}
           sx={{ mb: 2 }}
         >
@@ -141,6 +133,17 @@ export default function ContentDetail({ content }) {
             {content.likesCount} {content.likesCount === 1 ? 'Like' : 'Likes'}
           </Typography>
         </div>
+
+        {/* Content Image */}
+      {content.imageUrl && (
+        <CardMedia
+          component="img"
+          height="300"
+          image={contentImg}
+          alt={content.title}
+          sx={{ objectFit: 'cover' }}
+        />
+      )}
       </CardContent>
     </Card>
   );
