@@ -13,7 +13,7 @@ const updateBanner = (id, bannerData) => api.put(`/v1/banner/${id}`, bannerData,
 const fetchBookingList = (status) => api.get('/v1/manage/hospital/order',{params : {status : status}});
 const sendBookingNoti = (userData) => api.post('/v1/notification/booking',userData);
 
-const fetchContentList = (category) => api.get('/v1/content',{params : {category : category}});
+const fetchContentList = (category) => api.get('/v1/content',{params : {isFullBody : true, category : category}});
 export const getContentPresignedUrl = (filePath) => api.post('/v1/content/presigned-put-url', filePath);
 export const fetchContentImgs = (filePath) => api.get('/v1/content/presigned-get-url', {
     params: { filePath },     

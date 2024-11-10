@@ -2,6 +2,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '@/styles/Service.module.css'; // Import the CSS module
 import Image from 'next/image';
+import Link from 'next/link';
+
 
 const services = [
   { 
@@ -70,7 +72,9 @@ const Services: React.FC = () => {
           </div>
         ))}
       </div>
-      <button className={styles.bookNow}>Book Now</button>
+      <Link href="/contents">
+        <button className={styles.bookNow}>Manage Contents</button>
+      </Link>
     </section>
   );
 };

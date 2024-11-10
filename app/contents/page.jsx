@@ -5,7 +5,7 @@ import ContentForm from '@/components/contents/ContentForm';
 import ContentList from '@/components/contents/ContentList';
 import ContentDetail from '@/components/contents/ContentDetail';
 import {fetchContentList} from '@/services/api';
-import { Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 
 export default function CMS() {
   const [contentItems, setContentItems] = useState([]);
@@ -13,15 +13,18 @@ export default function CMS() {
   const [viewingItem, setViewingItem] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [loading, setLoading] = useState(false);
+  const [isWriting, setIsWriting] = useState(false);
 
-  
+  const fetchContents = async () => {
+    const response = await fetchContentList(selectedCategory);
+    setContentItems(response.data || []);
+  }
   
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetchContentList(selectedCategory);
-        setContentItems(response.data || []);
+        fetchContents();
       } catch (error) {
         console.error('Error fetching content:', error);
       } finally {
@@ -67,12 +70,18 @@ export default function CMS() {
       return;
     }
     const itemToView = contentItems.find((item) => item.contentId === contentId);
+    setIsWriting(false);
     setViewingItem(itemToView);
+  };
+
+  const handleCreate = (id) => {
+    setIsWriting(!isWriting);
+    setViewingItem(null);
   };
 
   return (
     <div className="w-screen">
-      <div>
+      <div className= "w-1/2 p-2">
         <label>Select Category: </label>
         <select value={selectedCategory} onChange={handleCategoryChange}>
           <option value="ALL">ALL</option>
@@ -82,6 +91,7 @@ export default function CMS() {
           <option value="VENUE">VENUE</option>
           <option value="SUPPORT">SUPPORT</option>          
         </select>
+        <Button className='float-right ' variant='outlined' color="success" onClick={handleCreate}>Create</Button>
       </div>
 
       <Grid container spacing={2}>
@@ -100,8 +110,14 @@ export default function CMS() {
         
         <Grid item xs={12} md={6}>
           {/* Left half: Content Detail */}
-          {viewingItem && (
-            <ContentDetail content={viewingItem} />
+          {(viewingItem || isWriting )&& (
+            <ContentDetail 
+            setViewingItem={setViewingItem} 
+            content={viewingItem} 
+            setIsWriting={setIsWriting} 
+            isWriting={isWriting} 
+            fetchContents = {fetchContents}/>
+
           )}
         </Grid>
       </Grid>

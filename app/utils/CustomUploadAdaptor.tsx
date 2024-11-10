@@ -1,7 +1,7 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
 import { FileLoader } from '@ckeditor/ckeditor5-upload';
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in binary size
+const MAX_FILE_SIZE = 1 * 1024 * 1024; // 5 MB in binary size
 
 // Define the custom upload adapter
 class CustomUploadAdapter {
