@@ -45,7 +45,6 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
 
   useEffect(()=>{
     isWriting && setTitle("");
-    console.log(editorRef.current);
     const editor = editorRef.current;
     editor && editor.setData("");
   },[isWriting])
