@@ -81,6 +81,8 @@ export default function CMS() {
           <option value="TIPS">TIPS</option>
           <option value="VENUE">VENUE</option>
           <option value="SUPPORT">SUPPORT</option>          
+          <option value="TERMS">SUPPORT</option>          
+          <option value="NOTICE">SUPPORT</option>          
         </select>
       </div>
 
