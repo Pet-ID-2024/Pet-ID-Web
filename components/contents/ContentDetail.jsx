@@ -15,8 +15,6 @@ import moment from 'moment';
 import { createContent, fetchContentImgs, updateContent } from '@/services/api';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { Context, ContextWatchdog } from 'ckeditor5';
-import { CKEditorContext } from '@ckeditor/ckeditor5-react';
 
 const CustomEditor = dynamic( () => import( '@/components/contents/CustomCKEditor' ), { ssr: false } );
 
@@ -132,11 +130,9 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
             onChange={handleTitleChange}
           />
         </FormControl>
-        <CKEditorContext context={ Context } contextWatchdog={ ContextWatchdog }>
         <CustomEditor          
           ref = {editorRef}               
         />
-        </CKEditorContext>
         </>        
         : isEditing ?
         <>
@@ -148,19 +144,17 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
             onChange={handleTitleChange}
           />
         </FormControl>
-        <CKEditorContext context={ Context } contextWatchdog={ ContextWatchdog }>
+        
         <CustomEditor
           data={content.body}             
           ref = {editorRef}       
-          
-          onReady={(editor) => {
-            console.log("ASdfasd");
+          onReady={(editor) => {            
             editorRef.current = editor;
             editor.setData(content.body);
           }}
           
         />
-        </CKEditorContext>
+        
         </>
         :
         <>

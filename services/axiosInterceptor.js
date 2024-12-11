@@ -9,8 +9,9 @@ const api = axios.create({
 
 // Add a request interceptor to include the Authorization token
 api.interceptors.request.use(
-  (config) => {
-    const token = useTokenStore.getState().token; // Access the token from Zustand
+  async (config) => {
+    const tokenStore = useTokenStore.getState(); // Access the token from Zustand
+    const token = await tokenStore.tokenReady; 
     if (token) {
       config.headers['Authorization'] = token; // Add the token to the request headers
     }

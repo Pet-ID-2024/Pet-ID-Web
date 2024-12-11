@@ -1,5 +1,4 @@
 'use client'
-
 import { useEffect, useState } from 'react';
 import ContentForm from '@/components/contents/ContentForm';
 import ContentList from '@/components/contents/ContentList';
@@ -84,12 +83,13 @@ export default function CMS() {
       <div className= "w-1/2 p-2">
         <label>Select Category: </label>
         <select value={selectedCategory} onChange={handleCategoryChange}>
-          <option value="ALL">ALL</option>
-          <option value="RECOMMENDED">RECOMMENDED</option>
-          <option value="ABOUTPET">ABOUTPET</option>
-          <option value="TIPS">TIPS</option>
-          <option value="VENUE">VENUE</option>
-          <option value="SUPPORT">SUPPORT</option>          
+          <option value="ALL">전체</option>
+          <option value="ABOUTPET">어바웃펫</option>
+          <option value="TIPS">반려TIP</option>
+          <option value="VENUE">장소</option>
+          <option value="SUPPORT">지원</option>          
+          <option value="TERMS">약관</option>
+          <option value="NOTICE">공지</option>
         </select>
         <Button className='float-right ' variant='outlined' color="success" onClick={handleCreate}>Create</Button>
       </div>

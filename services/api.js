@@ -1,7 +1,5 @@
 import api from './axiosInterceptor';
 
-export const getToken = () => api.get('/auth/test/token',{params : {memberId : 12}});
-
 const saveBanner = (BannerData) => api.post('/v1/banner', BannerData);
 const getPresignedUrl = (filePath) => api.post('/v1/banner/presigned-put-url', filePath, {headers: {"Content-Type": "text/plain"}});
 const uploadImage = (url, image) => api.put(url, image, { headers: { 'Content-Type': image.type }});

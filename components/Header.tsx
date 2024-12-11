@@ -29,7 +29,6 @@ const Header: React.FC = () => {
           <li><a href="#social"><FontAwesomeIcon icon={faInstagram} className={styles.icon}/></a></li>
           <li><a href="#social"><FontAwesomeIcon icon={faYelp} className={styles.icon}/></a></li>
           <li><a href="#login"><FontAwesomeIcon icon={faUser} className={styles.icon}/> Log In</a></li>
-
           <li><a href="/contents" className={styles.button}>Manage Contents</a></li>
         </ul>
       </nav>
