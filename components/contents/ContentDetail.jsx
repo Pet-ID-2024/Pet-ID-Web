@@ -109,11 +109,12 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
       <div className='mt-4 ml-4'>
       <label>Category: </label>
         <select value={selectedCategory || "RECOMMENDED"} disabled={(!isEditing && !isWriting) && true} onChange={handleCategoryChange} >          
-          <option value="RECOMMENDED">RECOMMENDED</option>
-          <option value="ABOUTPET">ABOUTPET</option>
-          <option value="TIPS">TIPS</option>
-          <option value="VENUE">VENUE</option>
-          <option value="SUPPORT">SUPPORT</option>          
+          <option value="ABOUTPET">어바웃펫</option>
+          <option value="TIPS">반려TIP</option>
+          <option value="VENUE">장소</option>
+          <option value="SUPPORT">지원</option>          
+          <option value="TERMS">약관</option>
+          <option value="NOTICE">공지</option>          
         </select>        
         </div>
       {/* Content Body */}
