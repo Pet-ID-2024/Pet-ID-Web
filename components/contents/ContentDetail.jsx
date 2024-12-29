@@ -115,6 +115,7 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
           <option value="SUPPORT">지원</option>          
           <option value="TERMS">약관</option>
           <option value="NOTICE">공지</option>          
+          <option value="FAQ">FAQ</option>
         </select>        
         </div>
       {/* Content Body */}
