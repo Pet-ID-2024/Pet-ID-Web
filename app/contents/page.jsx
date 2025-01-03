@@ -90,6 +90,8 @@ export default function CMS() {
           <option value="SUPPORT">지원</option>          
           <option value="TERMS">약관</option>
           <option value="NOTICE">공지</option>
+          <option value="FAQ">FAQ</option>
+          <option value="PRIVACY_POLICY">개인정보 처리방침</option>
         </select>
         <Button className='float-right ' variant='outlined' color="success" onClick={handleCreate}>Create</Button>
       </div>
