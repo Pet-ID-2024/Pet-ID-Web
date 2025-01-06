@@ -12,7 +12,7 @@ import {
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import moment from 'moment';
-import { createContent, fetchContentImgs, updateContent } from '@/services/api';
+import { createContent, fetchContentImgs, sendContentNoti, updateContent } from '@/services/api';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 
@@ -73,6 +73,8 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
       setIsEditing(false);
       setIsWriting(false);
       setViewingItem(null);
+      const fcm = {targetType: "TOPIC", target:"ALL", title: "contents", body:{id:response.data.contentId || -1, contentTitle : contentData.title }  }
+      sendContentNoti(fcm);
     }else {
       alert("저장 과정에서 오류가 발생했습니다.")    
     }  
@@ -115,7 +117,8 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
           <option value="SUPPORT">지원</option>          
           <option value="TERMS">약관</option>
           <option value="NOTICE">공지</option>          
-          <option value="FAQ">FAQ</option>
+          <option value="FAQ">FAQ</option>          
+          <option value="PRIVACY_POLICY">개인정보 처리방침</option>
         </select>        
         </div>
       {/* Content Body */}

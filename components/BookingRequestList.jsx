@@ -58,9 +58,9 @@ const BookingRequestList = () => {
         <Select value={statusFilter} onChange={handleStatusFilterChange}>
           <MenuItem value="PENDING">Pending</MenuItem>
           <MenuItem value="ALL">All</MenuItem>
-          <MenuItem value="COMPLETED">CONFIRMED</MenuItem>
+          <MenuItem value="CONFIRMED">CONFIRMED</MenuItem>
           <MenuItem value="CANCELLED">CANCELLED</MenuItem>
-          <MenuItem value="CANCELLED">COMPLETED</MenuItem>
+          <MenuItem value="COMPLETED">COMPLETED</MenuItem>
         </Select>
       </FormControl>
 
