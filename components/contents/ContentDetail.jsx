@@ -109,6 +109,7 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
   return (
     <Card sx={{margin: 'auto' }}>
       <div className='mt-4 ml-4'>
+      <h1 style={{marginBottom: '1em' }}>Content ID: {content.contentId}</h1>
       <label>Category: </label>
         <select value={selectedCategory || "RECOMMENDED"} disabled={(!isEditing && !isWriting) && true} onChange={handleCategoryChange} >          
           <option value="ABOUTPET">어바웃펫</option>

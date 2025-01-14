@@ -31,6 +31,7 @@ export default function ContentList({ contentItems, onDelete, onUpdate, onViewDe
       <Table>
         <TableHead>
           <TableRow>
+            <TableCell sx={{ fontWeight: 'bold', backgroundColor: '#6C63FF', color: '#FFF' }}>Content ID</TableCell>
             <TableCell sx={{ fontWeight: 'bold', backgroundColor: '#6C63FF', color: '#FFF' }}>Title</TableCell>
             <TableCell sx={{ fontWeight: 'bold', backgroundColor: '#6C63FF', color: '#FFF' }}>category</TableCell>
             <TableCell sx={{ fontWeight: 'bold', backgroundColor: '#6C63FF', color: '#FFF' }}>date</TableCell>
@@ -44,6 +45,7 @@ export default function ContentList({ contentItems, onDelete, onUpdate, onViewDe
               hover
               sx={{ cursor: 'pointer' }}
               onClick={(event) => onViewDetails(item.contentId, event)} >
+              <TableCell>{item.contentId}</TableCell>
               <TableCell>{item.title}</TableCell>
               <TableCell>{item.category}</TableCell>
               <TableCell>{item.createdAt}</TableCell>

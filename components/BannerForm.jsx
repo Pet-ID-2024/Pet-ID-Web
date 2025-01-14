@@ -12,7 +12,7 @@ const BannerForm = () => {
   const [type, setType] = useState('content');
   const [status, setStatus] = useState('active');
   const [banners, setBanners] = useState([]);
-  const [bannersImgs, setBannersImgs] = useState({});
+  const [contentId, setContentId] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
   const [bannerImg, setBannerImg] = useState(null);
@@ -40,6 +40,7 @@ const BannerForm = () => {
     setBannerImg(response);
   }
   const handleTextChange = (e) => setText(e.target.value);
+  const handleContentIdChange = (e) => setContentId(e.target.value);
   const handleTypeChange = (e) => setType(e.target.value);
   const handleStatusChange = (e) => setStatus(e.target.value);
   const handleImageChange = (e) => setImage(e.target.files[0]);
@@ -55,6 +56,7 @@ const BannerForm = () => {
         text,
         type,
         status,
+        contentId
       };
 
       if (image) {
@@ -100,6 +102,7 @@ const BannerForm = () => {
     setText(banner.text);
     setType(banner.type);
     setStatus(banner.status);
+    setContentId(banner.contentId);
     setIsEditing(true);
     setEditId(banner.id);
   };
@@ -130,6 +133,9 @@ const BannerForm = () => {
         </Select>
       </FormControl>
       <FormControl fullWidth margin="normal">
+        <TextField label="Content ID" value={contentId} onChange={handleContentIdChange} required />
+      </FormControl>
+      <FormControl fullWidth margin="normal">
         <InputLabel shrink>Image</InputLabel>
         <input type="file" onChange={handleImageChange} accept="image/*" />
       </FormControl>
@@ -147,6 +153,7 @@ const BannerForm = () => {
               <Typography variant="body1">Text: {banner.text}</Typography>
               <Typography variant="body2">Type: {banner.type}</Typography>
               <Typography variant="body2">Status: {banner.status}</Typography>
+              <Typography variant="body2">Content Id: {banner.contentId}</Typography>
             </div>
             <Button variant="outlined" color="primary" onClick={() => handleEdit(banner)}>Edit</Button>
           </Paper>
