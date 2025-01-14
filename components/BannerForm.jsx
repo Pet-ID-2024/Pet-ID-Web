@@ -12,7 +12,7 @@ const BannerForm = () => {
   const [type, setType] = useState('content');
   const [status, setStatus] = useState('active');
   const [banners, setBanners] = useState([]);
-  const [contentId, setContentId] = useState({});
+  const [contentId, setContentId] = useState();
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
   const [bannerImg, setBannerImg] = useState(null);
@@ -98,6 +98,14 @@ const BannerForm = () => {
     }
   };
 
+  const cancelEdit =()=> {
+    setIsEditing(false);
+    setText('');
+    setType('content');
+    setStatus('inactive');
+    setContentId(-1);
+    setEditId('');
+  }
   const handleEdit = (banner) => {
     setText(banner.text);
     setType(banner.type);
@@ -118,29 +126,32 @@ const BannerForm = () => {
       <FormControl fullWidth margin="normal">
         <TextField label="Text" value={text} onChange={handleTextChange} required />
       </FormControl>
-      <FormControl fullWidth margin="normal">
+      <FormControl fullWidth margin="normal" required>
         <InputLabel>Type</InputLabel>
-        <Select value={type} onChange={handleTypeChange} required>
+        <Select value={type} onChange={handleTypeChange} >
           <MenuItem value="content">Content</MenuItem>
           <MenuItem value="main">Main</MenuItem>
         </Select>
       </FormControl>
-      <FormControl fullWidth margin="normal">
+      <FormControl fullWidth margin="normal" required>
         <InputLabel>Status</InputLabel>
-        <Select value={status} onChange={handleStatusChange} required>
+        <Select value={status} onChange={handleStatusChange} >
           <MenuItem value="active">Active</MenuItem>
           <MenuItem value="inactive">Inactive</MenuItem>
         </Select>
       </FormControl>
       <FormControl fullWidth margin="normal">
-        <TextField label="Content ID" value={contentId} onChange={handleContentIdChange} required />
+        <TextField label="Content ID" value={contentId || ""}  onChange={handleContentIdChange}  />
       </FormControl>
       <FormControl fullWidth margin="normal">
         <InputLabel shrink>Image</InputLabel>
         <input type="file" onChange={handleImageChange} accept="image/*" />
       </FormControl>
-      <Button type="submit" variant="contained" color="primary" fullWidth>
+      <Button type="submit" variant="contained" color="primary" sx={{width:'45%'}}>
         {isEditing ? 'Update' : 'Save'}
+      </Button>
+      <Button type="button" onClick={cancelEdit} variant="contained" color="error"  sx={{width:'45%', marginLeft : '5em'}}>
+        Cancel Edit
       </Button>
     </form>
     {error && <Typography color="error">Error: {error}</Typography>}

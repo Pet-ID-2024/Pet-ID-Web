@@ -32,16 +32,17 @@ const BookingRequestList = () => {
 
   const handleStatusFilterChange = (e) => setStatusFilter(e.target.value);
   const handlePageChange = (event, value) => setCurrentPage(value);
-  const handleButtonClick = (booking,status) => {
+  const handleButtonClick = async(booking,status) => {
     // Handle button click logic here, e.g., update booking status based on buttonType
     const requestBody = {
       id :booking.id, 
       memberId: booking.memberId, 
       hospitalId: booking.hospitalId, 
+      hospitalName : booking.hospitalName,
       date:Date.now(), 
       status};
-    sendBookingNoti(requestBody)
-    alert("Notification has been sent.");
+    const response = await sendBookingNoti(requestBody)
+    response.status === 200 ? alert("Notification has been sent.") : alert("Error")     
     //console.log(`USER UID: ${uid}, status: ${status}`);
   };
 
