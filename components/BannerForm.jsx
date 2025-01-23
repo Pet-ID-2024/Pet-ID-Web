@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { saveBanner, getPresignedUrl, uploadImage, fetchBanners, updateBanner, fetchBannerImgs } from '@/services/api';
+import { saveBanner, getPresignedUrl, uploadImage, fetchBanners, updateBanner, fetchBannerImgs, deleteBanner } from '@/services/api';
 import { TextField, Select, MenuItem, InputLabel, FormControl, Button, Typography, Paper, Grid, Pagination } from '@mui/material';
 import styles from '@/styles/BannerForm.module.css';
 
@@ -18,21 +18,20 @@ const BannerForm = () => {
   const [bannerImg, setBannerImg] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10); // Number of items per page
+  const [updateTrigger, setUpdateTrigger] = useState(false);
 
-
+  const fetchData = async () => {
+    try {
+      const response = await fetchBanners("ALL");
+      setBanners(response.data);
+    } catch (err) {
+      setError('Failed to fetch banners.');
+      console.error('Error fetching banners:', err);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchBanners("ALL");
-        setBanners(response.data);
-      } catch (err) {
-        setError('Failed to fetch banners.');
-        console.error('Error fetching banners:', err);
-      }
-    };
-
     fetchData();
-  }, []);
+  }, [updateTrigger]);
 
   const getBannerImg = async (filePath) => {
     e.preventDefault();
@@ -72,7 +71,12 @@ const BannerForm = () => {
       
       if (isEditing) {
         // Update existing banner
+        try{  
         await updateBanner(editId, bannerData);
+      } catch(error){
+        error.response.status === 404 && alert("입력하신 컨텐츠ID에 해당하는 컨텐츠가 없습니다.");       
+        return; 
+      }
         alert('Banner updated successfully!');
       } else {
         // Create new banner
@@ -81,17 +85,15 @@ const BannerForm = () => {
         alert('Banner saved successfully!');
       }
 
-      
-
       setText('');
       setType('content');
       setStatus('active');
+      setContentId('');
       setImage(null);
       setIsEditing(false);
       setEditId(null);
 
-      const response = await fetchBanners("ALL");
-      setBanners(response.data);
+      setUpdateTrigger(!updateTrigger);      
     } catch (err) {
       setError(err.message);
       console.error('Transaction failed:', err);
@@ -103,7 +105,7 @@ const BannerForm = () => {
     setText('');
     setType('content');
     setStatus('inactive');
-    setContentId(-1);
+    setContentId('');
     setEditId('');
   }
   const handleEdit = (banner) => {
@@ -115,6 +117,24 @@ const BannerForm = () => {
     setEditId(banner.id);
   };
 
+  const handleDelete = async(bannerId) => {
+    try{
+      await deleteBanner(bannerId);
+    }catch(error){
+      setError(err.message);
+      console.error('Transaction failed:', err);
+      return;
+    }
+    setUpdateTrigger(!updateTrigger);
+    setIsEditing(false);
+    setText('');
+    setType('content');
+    setStatus('inactive');
+    setContentId('');
+    setEditId('');
+
+  };
+  
   const indexOfLastBanner = currentPage * itemsPerPage;
   const indexOfFirstBanner = indexOfLastBanner - itemsPerPage;
   const currentBanners = banners.slice(indexOfFirstBanner, indexOfLastBanner);
@@ -167,6 +187,7 @@ const BannerForm = () => {
               <Typography variant="body2">Content Id: {banner.contentId}</Typography>
             </div>
             <Button variant="outlined" color="primary" onClick={() => handleEdit(banner)}>Edit</Button>
+            <Button variant="outlined" color="error" onClick={() => handleDelete(banner.id)}>delete</Button>
           </Paper>
         </Grid>
       ))}

@@ -73,7 +73,7 @@ export default function CMS() {
     setViewingItem(itemToView);
   };
 
-  const handleCreate = (id) => {
+  const handleCreate = () => {
     setIsWriting(!isWriting);
     setViewingItem(null);
   };

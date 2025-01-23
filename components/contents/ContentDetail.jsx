@@ -12,7 +12,7 @@ import {
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import moment from 'moment';
-import { createContent, fetchContentImgs, sendContentNoti, updateContent } from '@/services/api';
+import { createContent, deleteContent, fetchContentImgs, sendContentNoti, updateContent } from '@/services/api';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 
@@ -56,8 +56,12 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
     setIsEditing(!isEditing);
   };
 
-  const handleDelete = () => {
-    deleteContent(content.contentId);
+  const handleDelete = async() => {
+    await deleteContent(content.contentId);
+    alert("삭제되었습니다.");    
+    setIsEditing(false);
+    setIsWriting(false);
+    setViewingItem(null);
   };
 
   const handleSave = async () => {
@@ -109,7 +113,7 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
   return (
     <Card sx={{margin: 'auto' }}>
       <div className='mt-4 ml-4'>
-      <h1 style={{marginBottom: '1em' }}>Content ID: {content.contentId}</h1>
+      {(!isWriting && !isEditing) &&<h1 style={{marginBottom: '1em' }}>Content ID: {content.contentId}</h1>}
       <label>Category: </label>
         <select value={selectedCategory || "RECOMMENDED"} disabled={(!isEditing && !isWriting) && true} onChange={handleCategoryChange} >          
           <option value="ABOUTPET">어바웃펫</option>
