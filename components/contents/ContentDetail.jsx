@@ -194,7 +194,7 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
         variant="contained"
         color='success'
         onClick={handleSave}
-        sx={{ mb: 2 }}
+        sx={{ mb: 2 , mt:1}}
       >
         Save
       </Button>

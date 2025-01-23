@@ -7,7 +7,8 @@ import styles from '@/styles/BannerForm.module.css';
 
 const BannerForm = () => {
   const [text, setText] = useState('');
-  const [image, setImage] = useState(null);
+  const [newImage, setNewImage] = useState(null);
+  const [contentImage, setContentImage] = useState(null);
   const [error, setError] = useState(null);
   const [type, setType] = useState('content');
   const [status, setStatus] = useState('active');
@@ -33,8 +34,8 @@ const BannerForm = () => {
     fetchData();
   }, [updateTrigger]);
 
-  const getBannerImg = async (filePath) => {
-    e.preventDefault();
+  const getBannerImg = async (filePath) => {    
+    if(!filePath || filePath === '') return;
     const response = await fetchBannerImgs(filePath);
     setBannerImg(response);
   }
@@ -42,7 +43,7 @@ const BannerForm = () => {
   const handleContentIdChange = (e) => setContentId(e.target.value);
   const handleTypeChange = (e) => setType(e.target.value);
   const handleStatusChange = (e) => setStatus(e.target.value);
-  const handleImageChange = (e) => setImage(e.target.files[0]);
+  const handleImageChange = (e) => setNewImage(e.target.files[0]);
   const handlePageChange = (event, value) => setCurrentPage(value);
 
   const handleSubmit = async (e) => {
@@ -51,21 +52,21 @@ const BannerForm = () => {
 
     try {
       const bannerData = {
-        imageUrl: image ? `bannerImage/${image.name}` : '',
+        imageUrl: newImage ? `bannerImage/${newImage.name}` : contentImage,
         text,
         type,
         status,
         contentId
       };
 
-      if (image) {
-        const filePath = `bannerImage/${image.name}`;
+      if (newImage) {
+        const filePath = `bannerImage/${newImage.name}`;
         const encodedFilePath = encodeURIComponent(filePath);
         const presignedUrlResponse = await getPresignedUrl(encodedFilePath);
         const url = presignedUrlResponse.data;
         if (!url) throw new Error('Failed to get presigned URL.');
 
-        const uploadResponse = await uploadImage(url, image);
+        const uploadResponse = await uploadImage(url, newImage);
         if (uploadResponse.status !== 200) throw new Error('Failed to upload image.');
       }
       
@@ -89,7 +90,7 @@ const BannerForm = () => {
       setType('content');
       setStatus('active');
       setContentId('');
-      setImage(null);
+      setNewImage(null);
       setIsEditing(false);
       setEditId(null);
 
@@ -108,13 +109,15 @@ const BannerForm = () => {
     setContentId('');
     setEditId('');
   }
-  const handleEdit = (banner) => {
+  const handleEdit = async(banner) => {
     setText(banner.text);
     setType(banner.type);
     setStatus(banner.status);
     setContentId(banner.contentId);
     setIsEditing(true);
     setEditId(banner.id);
+    setContentImage(banner.imageUrl)
+    await getBannerImg(banner.imageUrl);
   };
 
   const handleDelete = async(bannerId) => {
@@ -174,9 +177,8 @@ const BannerForm = () => {
         Cancel Edit
       </Button>
     </form>
-    {error && <Typography color="error">Error: {error}</Typography>}
-    <Typography variant="h5" gutterBottom>Banner List</Typography>
-    <Grid container spacing={2}>
+    {error && <Typography color="error">Error: {error}</Typography>}    
+    <Grid container spacing={2} className='mt-2'>
       {currentBanners.map((banner) => (
         <Grid item xs={12} key={banner.id}>
           <Paper className={styles.bannerItem} elevation={3}>
