@@ -1,14 +1,15 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { saveBanner, getPresignedUrl, uploadImage, fetchBanners, updateBanner, fetchBannerImgs, deleteBanner } from '@/services/api';
+import { saveBanner, getPresignedUrl, uploadImage, fetchBanners, updateBanner, fetchBannerImgs, deleteBanner, fetchImage } from '@/services/api';
 import { TextField, Select, MenuItem, InputLabel, FormControl, Button, Typography, Paper, Grid, Pagination } from '@mui/material';
 import styles from '@/styles/BannerForm.module.css';
+import Image from 'next/image';
 
 const BannerForm = () => {
   const [text, setText] = useState('');
   const [newImage, setNewImage] = useState(null);
-  const [contentImage, setContentImage] = useState(null);
+  const [currentBannerImage, setCurrentBannerImage] = useState(null);
   const [error, setError] = useState(null);
   const [type, setType] = useState('content');
   const [status, setStatus] = useState('active');
@@ -35,9 +36,13 @@ const BannerForm = () => {
   }, [updateTrigger]);
 
   const getBannerImg = async (filePath) => {    
-    if(!filePath || filePath === '') return;
-    const response = await fetchBannerImgs(filePath);
-    setBannerImg(response);
+    if(!filePath || filePath === '') {
+      setBannerImg(""); 
+      return;      
+    };
+    const bannerUrlResponse = await fetchBannerImgs(filePath);
+    const bannerUrl = bannerUrlResponse.data    
+    setBannerImg(bannerUrl);    
   }
   const handleTextChange = (e) => setText(e.target.value);
   const handleContentIdChange = (e) => setContentId(e.target.value);
@@ -52,7 +57,7 @@ const BannerForm = () => {
 
     try {
       const bannerData = {
-        imageUrl: newImage ? `bannerImage/${newImage.name}` : contentImage,
+        imageUrl: newImage ? `bannerImage/${newImage.name}` : currentBannerImage,
         text,
         type,
         status,
@@ -116,7 +121,7 @@ const BannerForm = () => {
     setContentId(banner.contentId);
     setIsEditing(true);
     setEditId(banner.id);
-    setContentImage(banner.imageUrl)
+    setCurrentBannerImage(banner.imageUrl)
     await getBannerImg(banner.imageUrl);
   };
 
@@ -169,6 +174,15 @@ const BannerForm = () => {
       <FormControl fullWidth margin="normal">
         <InputLabel shrink>Image</InputLabel>
         <input type="file" onChange={handleImageChange} accept="image/*" />
+        {(isEditing && bannerImg) && <Image
+                src={bannerImg || ""}
+                alt="Banner Image"
+                width={300}
+                height={100}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                objectFit="contain"                                
+                quality={100}
+              />}
       </FormControl>
       <Button type="submit" variant="contained" color="primary" sx={{width:'45%'}}>
         {isEditing ? 'Update' : 'Save'}
