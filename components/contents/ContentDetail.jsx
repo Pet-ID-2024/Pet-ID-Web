@@ -23,8 +23,8 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
   
   const [contentImg, setContentImg] = useState(null);
   const [isEditing, setIsEditing] = useState(false); // For toggling edit mode
-  const [selectedCategory , setSelectedCategory] = useState("TIPS");  
-  const [title , setTitle] = useState("TIPS");  
+  const [selectedCategory , setSelectedCategory] = useState("ABOUTPET");  
+  const [title , setTitle] = useState(content?.title || "");  
   const titleRef = useRef();    
   const editorRef = useRef();  
   const categoryRef = useRef();  
@@ -48,7 +48,7 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
   },[isWriting])
 
   useEffect(()=>{
-    setSelectedCategory(content?.category || "TIPS");
+    setSelectedCategory(content?.category || "ABOUTPET");
   },[content?.category ])
 
   const handleEditToggle = () => {
@@ -109,9 +109,9 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
   return (
     <Card sx={{margin: 'auto' }}>
       <div className='mt-4 ml-4'>
-      <h1 style={{marginBottom: '1em' }}>Content ID: {content.contentId}</h1>
+      {!isWriting && <h1 style={{marginBottom: '1em' }}>Content ID: {content.contentId}</h1>}
       <label>Category: </label>
-        <select value={selectedCategory || "RECOMMENDED"} disabled={(!isEditing && !isWriting) && true} onChange={handleCategoryChange} >          
+        <select value={selectedCategory} disabled={(!isEditing && !isWriting) && true} onChange={handleCategoryChange} >          
           <option value="ABOUTPET">어바웃펫</option>
           <option value="TIPS">반려TIP</option>
           <option value="VENUE">장소</option>
@@ -146,7 +146,7 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
           <TextField
             required
             label="Title"                        
-            defaultValue={content.title || ""}
+            value={title}
             onChange={handleTitleChange}
           />
         </FormControl>
