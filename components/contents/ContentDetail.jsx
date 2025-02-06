@@ -24,7 +24,7 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
   const [contentImg, setContentImg] = useState(null);
   const [isEditing, setIsEditing] = useState(false); // For toggling edit mode
   const [selectedCategory , setSelectedCategory] = useState("TIPS");  
-  const [title , setTitle] = useState("TIPS");  
+  const [title , setTitle] = useState("");  
   const titleRef = useRef();    
   const editorRef = useRef();  
   const categoryRef = useRef();  
@@ -150,7 +150,7 @@ export default function ContentDetail({ content, fetchContents , isWriting, setI
           <TextField
             required
             label="Title"                        
-            defaultValue={content.title || ""}
+            value={content.title || ""}
             onChange={handleTitleChange}
           />
         </FormControl>
